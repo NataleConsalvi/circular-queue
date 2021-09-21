@@ -69,6 +69,7 @@ void Nats::CircularQueue::enqueue(char c){
 char Nats::CircularQueue::dequeue(){
     
     if(size == 0){
+        Nats::to_stamp("dequeing head's char");
         throw std::runtime_error("Queue is empty!");
     }else{
         char c = array[head];

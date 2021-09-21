@@ -47,14 +47,14 @@ int main() {
     s = q.stamp_queue();
     cout << "stamp of the queue: " << s << endl;            // coda piena
 
-    /*
+
     try {       
         q.enqueue('z');
     } catch (std::runtime_error& ex) {
         cout << "something bad happened!" << ex.what() << endl;
         cout << "I caught the exception, will continue" << endl;
     };
-    */
+
 
     q.dequeue();  // e
     q.dequeue();  // f
@@ -70,14 +70,12 @@ int main() {
     s = q.stamp_queue();
     cout << "stamp of the queue: " << s << endl;
 
-    /*
     try {
         q.dequeue();
     } catch (std::runtime_error& ex) {
         cout << "something bad happened!" << ex.what() << endl;
         cout << "I caught the exception, will continue" << endl;
     };
-    */
 
     cout << "end of the program!" << endl;
 
