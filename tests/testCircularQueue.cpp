@@ -53,3 +53,31 @@ TEST_CASE("Test 5: top ", "[circular_queue]") {
     c = q.top();
     REQUIRE(c == 'Z');
 }
+
+TEST_CASE("Test 6: enqueue ", "[circular_queue]") {
+
+    Nats::CircularQueue q(2);
+
+    q.enqueue('a');
+    char c = q.top();
+    REQUIRE(c == 'a');
+
+    q.enqueue('b');
+    int j = q.get_size();
+    REQUIRE(j == 2);
+
+    REQUIRE_THROWS_AS(q.enqueue('d'), std::runtime_error);
+}
+
+TEST_CASE("Test 7: dequeue ", "[circular_queue]") {
+
+    Nats::CircularQueue q(2);
+
+    q.enqueue('a');
+    char c = q.dequeue();
+    REQUIRE(c == 'a');
+    int j = q.get_size();
+    REQUIRE(j == 0);
+
+    REQUIRE_THROWS_AS(q.dequeue(), std::runtime_error);
+}
