@@ -68,7 +68,7 @@ void Nats::CircularQueue::enqueue(char c){
 
 char Nats::CircularQueue::dequeue(){
     
-    if(size == capacity){
+    if(size == 0){
         throw std::runtime_error("Queue is empty!");
     }else{
         char c = array[head];
@@ -84,33 +84,41 @@ string Nats::CircularQueue::stamp_queue(){
     string s;
     int ct = (head + size) % capacity;
     s += "[";
-    if(head <= ct){
-        for(int i = 0; i < head; i++){
-            s += "_";
-            s += ", ";
-        }
-        for(int i = head; i < ct; i++){
-            s += array[i];
-            s += ", ";
-        }
-        for(int i = ct; i < capacity; i++){
-            s += "_";
-            s += ", ";
+    if(size != 0){
+        if(head < ct){
+            for(int i = 0; i < head; i++){
+                s += "_";
+                s += ", ";
+            }
+            for(int i = head; i < ct; i++){
+                s += array[i];
+                s += ", ";
+            }
+            for(int i = ct; i < capacity; i++){
+                s += "_";
+                s += ", ";
+            }
+        }else{
+            for(int i = 0; i < ct; i++){
+                s += array[i];
+                s += ", ";
+            }
+            for(int i = ct; i < head; i++){
+                s += "_";
+                s += ", ";
+            }
+            for(int i = head; i < capacity; i++){
+                s += array[i];
+                s += ", ";
+            }
         }
     }else{
-        for(int i = 0; i < ct; i++){
-            s += array[i];
-            s += ", ";
-        }
-        for(int i = ct; i < head; i++){
+        for(int i = 0; i < capacity; i++){
             s += "_";
-            s += ", ";
-        }
-        for(int i = head; i < capacity; i++){
-            s += array[i];
             s += ", ";
         }
     }
+
     int i = s.size();
     s.resize(i -2);
     s += "]";
